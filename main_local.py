@@ -32,7 +32,7 @@ def getPrediction(user_id):
   js = data.to_json(orient = 'columns')
   return js, 200
 
-def run_server(request):
+if __name__ == '__main__':
   file_name = os.path.expanduser('predictionsv1')
   loadded_predictions, _ = dump.load(file_name)
   predictions_df = get_df_predictions(predictions = loadded_predictions)

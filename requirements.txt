@@ -1,3 +1,5 @@
-functions-framework==3.0.0
-flask==2.0.1
-google-cloud-error-reporting==1.4.1
+functions-framework
+flask
+google-cloud-error-reporting
+scikit-surprise
+pandas
