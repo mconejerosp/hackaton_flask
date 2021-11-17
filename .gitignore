@@ -128,3 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 predictionsv1
+credentials.json

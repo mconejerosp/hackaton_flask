@@ -3,3 +3,4 @@ flask
 google-cloud-error-reporting
 scikit-surprise
 pandas
+google-cloud-storage
