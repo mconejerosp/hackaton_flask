@@ -45,7 +45,12 @@ def getPrediction(user_id):
 
 if __name__ == '__main__':
   downloadPredictions()
+  print("READING FILE.......")
   file_name = os.path.expanduser('predictionsv1')
+  print("1")
   loadded_predictions, _ = dump.load(file_name)
+  print("2")
   predictions_df = get_df_predictions(predictions = loadded_predictions)
-  app.run()
+  print("3")
+  print("READ FILE.......")
+  app.run("0.0.0.0",8080)
