@@ -39,7 +39,7 @@ def startup():
 
 @app.route("/prediction/<user_id>", methods=["GET"])
 def getPrediction(user_id):
-  data = get_top_n(userid = int(user_id), preds_df = predictions_df)
+  data = get_top_n(userid = user_id, preds_df = predictions_df)
   js = data.to_json(orient = 'columns')
   return js, 200
 
