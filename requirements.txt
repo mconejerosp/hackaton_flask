@@ -1,5 +1,6 @@
 functions-framework
 flask
+flask-cors
 google-cloud-error-reporting
 scikit-surprise
 pandas

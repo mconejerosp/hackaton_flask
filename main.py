@@ -2,10 +2,12 @@ import os
 import pandas as pd
 from flask import Flask
 from surprise import dump
+from flask_cors import CORS
 from google.cloud import storage
 from collections import defaultdict
 
 app = Flask("internal")
+CORS(app)
 
 def get_df_predictions(predictions, n = 10):
   top_n = defaultdict(list)
@@ -62,7 +64,7 @@ def getCategoryPrediction(user_id):
   return js, 200
 
 if __name__ == '__main__':
-  downloadPredictions()
+  # downloadPredictions()
   print("READING ITEMS.......")
   file_name = os.path.expanduser('predictionsv1')
   loaded_predictions, _ = dump.load(file_name)
