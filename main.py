@@ -64,7 +64,7 @@ def getCategoryPrediction(user_id):
   return js, 200
 
 if __name__ == '__main__':
-  # downloadPredictions()
+  downloadPredictions()
   print("READING ITEMS.......")
   file_name = os.path.expanduser('predictionsv1')
   loaded_predictions, _ = dump.load(file_name)
