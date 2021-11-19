@@ -127,6 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+brandsv1
 predictionsv1
 categoriesv1
 credentials.json

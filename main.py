@@ -31,6 +31,17 @@ def get_cat_predictions(predictions, n = 10):
                       columns=["user_id", "category", "estimation"])
   return cat_df
 
+def get_brand_predictions(predictions, n = 10):
+  top_n = defaultdict(list)
+  for uid, iid, true_r, est, _ in predictions:
+    top_n[uid].append((iid, est))
+  for uid, user_ratings in top_n.items():
+    user_ratings.sort(key = lambda x: x[1], reverse = True)
+    top_n[uid] = user_ratings[: n ]
+  brand_df = pd.DataFrame([(pair[0], pair[1], id) for id, row in top_n.items() for pair in row],
+                      columns=["brand", "estimation", "user_id"])
+  return brand_df
+
 def get_top_n(userid, preds_df, n = 10):
   pred_usr = preds_df[preds_df["user_id"] == (userid)]
   return pred_usr
@@ -38,6 +49,10 @@ def get_top_n(userid, preds_df, n = 10):
 def get_top_n_cat(userid, preds_df, n = 10):
   pred_cat = preds_df[preds_df["user_id"] == (userid)]
   return pred_cat
+
+def get_top_n_brand(userid, preds_df, n = 10):
+  pred_brand = preds_df[preds_df["user_id"] == (userid)]
+  return pred_brand
 
 def downloadPredictions():
   storage_client = storage.Client("flowing-bonito-331815")
@@ -63,8 +78,14 @@ def getCategoryPrediction(user_id):
   js = data.to_json(orient = 'columns')
   return js, 200
 
+@app.route("/predictions/brand/<user_id>", methods=["GET"])
+def getBrandPrediction(user_id):
+  data = get_top_n_brand(userid = user_id, preds_df = brands_df)
+  js = data.to_json(orient = 'columns')
+  return js, 200
+
 if __name__ == '__main__':
-  # downloadPredictions()
+  downloadPredictions()
   print("READING ITEMS.......")
   file_name = os.path.expanduser('predictionsv1')
   loaded_predictions, _ = dump.load(file_name)
@@ -76,5 +97,11 @@ if __name__ == '__main__':
   categories_predictions, _ = dump.load(file_name)
   categories_df = get_cat_predictions(predictions = categories_predictions)
   print("CATEGORIES READ.....")
+
+  print("READING BRANDS...")
+  file_name = os.path.expanduser('brandsv1')
+  brands_predictions, _ = dump.load(file_name)
+  brands_df = get_brand_predictions(predictions = brands_predictions)
+  print("BRANDS READ.....")
 
   app.run("0.0.0.0", 8080)
