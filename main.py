@@ -61,6 +61,8 @@ def downloadPredictions():
   blob.download_to_filename('predictionsv1')
   blob = bucket.blob("categoriesv1")
   blob.download_to_filename('categoriesv1')
+  blob = bucket.blob("brandsv1")
+  blob.download_to_filename('brandsv1')
 
 @app.route('/')
 def startup():
