@@ -14,8 +14,8 @@ def get_df_predictions(predictions, n = 10):
   for uid, user_ratings in top_n.items():
     user_ratings.sort(key = lambda x: x[1], reverse = True)
     top_n[uid] = user_ratings[: n ]
-  preds_df = pd.DataFrame([(id, pair[0], pair[1], pair[2]) for id, row in top_n.items() for pair in row],
-                      columns=["user_id" ,"items_id","event_name", "item_name"])
+  preds_df = pd.DataFrame([(pair[2][0], pair[0], pair[1], id) for id, row in top_n.items() for pair in row],
+                      columns=[ "item_name", "items_id", "event_name", "user_id"])
   return preds_df
 
 def get_cat_predictions(predictions, n = 10):
